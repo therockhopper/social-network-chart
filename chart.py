@@ -6,6 +6,9 @@ def main():
 
     points = []
     size_dict = {}
+    color_dict = {
+            "vertex": "#DAEEF3", "edge": "#aeaeae"
+            }
 
     with open("source.csv") as f:
         reader = csv.reader(f)
@@ -30,14 +33,17 @@ def main():
 
     visual_style = {}
     visual_style["vertex_size"] = [size_dict[name] for name in g.vs["name"]]
+    visual_style["vertex_color"] = color_dict["vertex"]
     visual_style["vertex_label"] = g.vs["name"]
-    visual_style["vertex_label_dist"] = 1
+    visual_style["vertex_label_dist"] = 1.1
+    visual_style["vertex_label_font"] = 2
     visual_style["layout"] = layout
     visual_style["edge_curved"] = 0
+    visual_style["edge_color"] = color_dict["edge"]
     visual_style["edge_width"] = [(int(size_dict[name]) / 10) for name in g.vs["name"]]
-    visual_style["margin"] = 50
+    visual_style["margin"] = 100
 
-    plot(g, "social_network.pdf", **visual_style)
+    plot(g, "social_network.svg", **visual_style)
 
 if __name__ == "__main__":
     main()
